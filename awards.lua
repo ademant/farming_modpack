@@ -45,4 +45,15 @@ if minetest.get_modpath("awards") then
 			}
 		})
 
+		awards.register_achievement("farming_miller", {
+			title = ("Farming Miller"),
+			description = ("You are advanced miller"),
+			icon = "farming_awards_miller.png",
+			trigger = {
+				type = "craft",
+				item = "farming:flour",
+				target = 100
+			}
+		})
+
 end
