@@ -47,3 +47,5 @@ ademant (MIT)
 Authors of media (textures)
 ---------------------------
 Created by ademant (CC BY 3.0):
+  farming_awards_thresher (based on picture from addysgLLGC on opencliparts)
+  farming_awards_miller (based on https://openclipart.org/detail/11551/rpg-map-symbols-windmill)

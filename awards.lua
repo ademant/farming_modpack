@@ -53,7 +53,19 @@ if minetest.get_modpath("awards") then
 				type = "craft",
 				item = "farming:flour",
 				target = 100
-			}
+			},
+			prizes = {"farming:mortar_pestle_highlevel","farming:bread 3"},
+		})
+		awards.register_achievement("farming_thresher", {
+			title = ("Farming Thresher"),
+			description = ("You are advanced thresher"),
+			icon = "farming_awards_thresher.png",
+			trigger = {
+				type = "craft",
+				item = "group:for_flour",
+				target = 100
+			},
+			prizes = {"farming:flour 10","farming:bread 5"},
 		})
 
 end
