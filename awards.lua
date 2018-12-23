@@ -45,9 +45,20 @@ if minetest.get_modpath("awards") then
 			}
 		})
 
+		awards.register_achievement("farming_farmer", {
+			title = ("Advanced Farmer"),
+			description = ("You are an advanced farmer"),
+			icon = "farming_awards_farmer.png",
+			trigger = {
+				type = "dig",
+				item = "groups:for_flour",
+				target = 100
+			}
+		})
+		
 		awards.register_achievement("farming_miller", {
 			title = ("Farming Miller"),
-			description = ("You are advanced miller"),
+			description = ("You are an advanced miller"),
 			icon = "farming_awards_miller.png",
 			trigger = {
 				type = "craft",
@@ -58,7 +69,7 @@ if minetest.get_modpath("awards") then
 		})
 		awards.register_achievement("farming_thresher", {
 			title = ("Farming Thresher"),
-			description = ("You are advanced thresher"),
+			description = ("You are an advanced thresher"),
 			icon = "farming_awards_thresher.png",
 			trigger = {
 				type = "craft",
