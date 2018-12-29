@@ -1,7 +1,7 @@
 -- Global farming namespace
 
 farming_craft = {}
-farming_craft.path = minetest.get_modpath("farming")
+farming_craft.path = minetest.get_modpath("farming_craft")
 farming_craft.config = minetest.get_mod_storage()
 farming_craft.modname=minetest.get_current_modname()
 farming_craft.mod = "redesign"
@@ -15,6 +15,7 @@ minetest.log("action", "[MOD]"..minetest.get_current_modname().." -- start loadi
 -- import settingtypes.txt
 basic_functions.import_settingtype(farming_craft.path .. "/settingtypes.txt")
 
+dofile(farming_craft.path .. "/api.lua") -- several foods out of crops
 dofile(farming_craft.path .. "/food.lua") -- several foods out of crops
 
 minetest.log("action", "[MOD]"..minetest.get_current_modname().." -- loaded ")

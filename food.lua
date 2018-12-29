@@ -1,9 +1,10 @@
 
-local S = farming.intllib
+local S = farming_craft.intllib
+local modlist=minetest.get_modnames()
 
 --= Sugar
 
-minetest.register_craftitem("farming:sugar", {
+minetest.register_craftitem(":farming:sugar", {
 	description = S("Sugar"),
 	inventory_image = "farming_sugar.png",
 	groups = {food_sugar = 1, flammable = 3},
@@ -25,7 +26,7 @@ minetest.register_craft({
 
 --= Salt
 
-minetest.register_node("farming:salt", {
+minetest.register_node(":farming:salt", {
 	description = ("Salt"),
 	inventory_image = "farming_salt.png",
 	wield_image = "farming_salt.png",
@@ -52,7 +53,7 @@ minetest.register_craft({
 
 --= Rose Water
 
-minetest.register_node("farming:rose_water", {
+minetest.register_node(":farming:rose_water", {
 	description = ("Rose Water"),
 	inventory_image = "farming_rose_water.png",
 	wield_image = "farming_rose_water.png",
@@ -84,7 +85,7 @@ minetest.register_craft({
 
 --= Turkish Delight
 
-minetest.register_craftitem("farming:turkish_delight", {
+minetest.register_craftitem(":farming:turkish_delight", {
 	description = S("Turkish Delight"),
 	inventory_image = "farming_turkish_delight.png",
 	groups = {flammable = 3},
@@ -106,7 +107,7 @@ minetest.register_craft({
 
 --= Garlic Bread
 
-minetest.register_craftitem("farming:garlic_bread", {
+minetest.register_craftitem(":farming:garlic_bread", {
 	description = S("Garlic Bread"),
 	inventory_image = "farming_garlic_bread.png",
 	groups = {flammable = 3},
@@ -121,7 +122,7 @@ minetest.register_craft({
 
 --= Donuts (thanks to Bockwurst for making the donut images)
 
-minetest.register_craftitem("farming:donut", {
+minetest.register_craftitem(":farming:donut", {
 	description = S("Donut"),
 	inventory_image = "farming_donut.png",
 	on_use = minetest.item_eat(4),
@@ -136,7 +137,7 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craftitem("farming:donut_chocolate", {
+minetest.register_craftitem(":farming:donut_chocolate", {
 	description = S("Chocolate Donut"),
 	inventory_image = "farming_donut_chocolate.png",
 	on_use = minetest.item_eat(6),
@@ -150,7 +151,7 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craftitem("farming:donut_apple", {
+minetest.register_craftitem(":farming:donut_apple", {
 	description = S("Apple Donut"),
 	inventory_image = "farming_donut_apple.png",
 	on_use = minetest.item_eat(6),
@@ -166,7 +167,7 @@ minetest.register_craft({
 
 --= Porridge Oats
 
-minetest.register_craftitem("farming:porridge", {
+minetest.register_craftitem(":farming:porridge", {
 	description = S("Porridge"),
 	inventory_image = "farming_porridge.png",
 	on_use = minetest.item_eat(6, "farming:bowl"),
@@ -192,3 +193,99 @@ minetest.after(0, function()
 		replacements = {{fluid_return, "bucket:bucket_empty"}}
 	})
 end)
+
+
+minetest.register_craftitem(":farming:bread", {
+	description = "Bread",
+	inventory_image = "farming_bread.png",
+	on_use = minetest.item_eat(5),
+	groups = {food_bread = 1, flammable = 2},
+})
+
+minetest.register_craft({
+	type = "cooking",
+	cooktime = 15,
+	output = "farming:bread",
+	recipe = "farming:flour"
+})
+
+
+if basic_functions.has_value(modlist,"vessels") and basic_functions.has_value(modlist,"bucket") then
+	minetest.register_craft( {
+		output = ":farming:grain_coffee_cup 3",
+		type = "shapeless",
+		recipe = {"vessels:drinking_glass","vessels:drinking_glass","vessels:drinking_glass", "group:food_grain_powder",
+			"bucket:bucket_water"},
+		replacements = {
+			{"bucket:bucket_water", "bucket:bucket_empty"},
+		}
+	})
+	minetest.register_craft( {
+		output = ":farming:coffee_cup",
+		type = "shapeless",
+		recipe = {"vessels:drinking_glass", "group:food_powder",
+			"bucket:bucket_water"},
+		replacements = {
+			{"bucket:bucket_water", "bucket:bucket_empty"},
+		}
+	})
+	minetest.register_craftitem(":farming:grain_coffee_cup", {
+		description = "Grain Coffee",
+		inventory_image = "farming_coffee_cup.png",
+		on_use = function(itemstack,user,pointed_thing)
+			drink_or_eat(2,"vessels:drinking_glass",itemstack,user,pointed_thing)
+		end,
+		groups = {coffee = 1, flammable = 1, beverage=1},
+	})
+	minetest.register_craftitem(":farming:grain_coffee_cup_hot", {
+		description = "Grain Coffee hot",
+		inventory_image = "farming_coffee_cup_hot.png",
+		on_use = function(itemstack,user,pointed_thing)
+			drink_or_eat(4,"vessels:drinking_glass",itemstack,user,pointed_thing)
+		end,
+		groups = {coffee = 2, flammable = 1, beverage=2},
+	})
+	minetest.register_craft({
+		type = "cooking",
+		cooktime = 2,
+		output = "farming:grain_coffee_cup_hot",
+		recipe = "farming:grain_coffee_cup"
+	})
+	minetest.register_craftitem(":farming:grain_milk", {
+		description = "Grain Milk",
+		inventory_image = "farming_grain_milk.png",
+		on_use = function(itemstack,user,pointed_thing)
+			drink_or_eat(5,"vessels:drinking_glass",itemstack,user,pointed_thing)
+		end,
+		groups = {flammable = 1, beverage=1},
+	})
+	minetest.register_craft( {
+		output = ":farming:grain_milk 3",
+		type = "shapeless",
+		recipe = {"vessels:drinking_glass","vessels:drinking_glass","vessels:drinking_glass", "farming:flour",
+			"bucket:bucket_water"},
+		replacements = {
+			{"bucket:bucket_water", "bucket:bucket_empty"},
+		}
+	})
+else
+	print("Mod vessels/bucket not available. Seriously? -> no COFFEE!")
+end
+
+if basic_functions.has_value(modlist,"wool") then
+	minetest.register_craft({
+		output="wool:white",
+		type="shapeless",
+		recipe={"farming:cotton","farming:cotton","farming:cotton","farming:cotton"},
+		})
+	minetest.register_craft({
+		output="wool:dark_green",
+		type="shapeless",
+		recipe={"farming:nettle_fibre","farming:nettle_fibre","farming:nettle_fibre","farming:nettle_fibre"},
+		})
+	minetest.register_craft({
+		output="wool:dark_green",
+		type="shapeless",
+		recipe={"farming:hemp_fibre","farming:hemp_fibre","farming:hemp_fibre","farming:hemp_fibre"},
+		})
+end
