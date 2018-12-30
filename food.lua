@@ -232,17 +232,13 @@ if basic_functions.has_value(modlist,"vessels") and basic_functions.has_value(mo
 	minetest.register_craftitem(":farming:grain_coffee_cup", {
 		description = "Grain Coffee",
 		inventory_image = "farming_coffee_cup.png",
-		on_use = function(itemstack,user,pointed_thing)
-			drink_or_eat(2,"vessels:drinking_glass",itemstack,user,pointed_thing)
-		end,
+		on_use = minetest.item_eat(2,"vessels:drinking_glass"),
 		groups = {coffee = 1, flammable = 1, beverage=1},
 	})
 	minetest.register_craftitem(":farming:grain_coffee_cup_hot", {
 		description = "Grain Coffee hot",
 		inventory_image = "farming_coffee_cup_hot.png",
-		on_use = function(itemstack,user,pointed_thing)
-			drink_or_eat(4,"vessels:drinking_glass",itemstack,user,pointed_thing)
-		end,
+		on_use = minetest.item_eat(4,"vessels:drinking_glass"),
 		groups = {coffee = 2, flammable = 1, beverage=2},
 	})
 	minetest.register_craft({
@@ -254,9 +250,7 @@ if basic_functions.has_value(modlist,"vessels") and basic_functions.has_value(mo
 	minetest.register_craftitem(":farming:grain_milk", {
 		description = "Grain Milk",
 		inventory_image = "farming_grain_milk.png",
-		on_use = function(itemstack,user,pointed_thing)
-			drink_or_eat(5,"vessels:drinking_glass",itemstack,user,pointed_thing)
-		end,
+		on_use = minetest.item_eat(5,"vessels:drinking_glass"),
 		groups = {flammable = 1, beverage=1},
 	})
 	minetest.register_craft( {
