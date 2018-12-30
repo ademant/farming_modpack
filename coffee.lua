@@ -1,7 +1,7 @@
 local S = farming.intllib
 
 -- cold cup of coffee
-minetest.register_node("farming:grain_coffee_cup", {
+minetest.register_node(":farming:grain_coffee_cup", {
 	description = S("Cup of Grain Coffee"),
 	drawtype = "torchlike", --"plantlike",
 	tiles = {"farming_coffee_cup.png"},
@@ -31,7 +31,7 @@ minetest.register_craft( {
 	}
 })
 
-minetest.register_craftitem("farming:grain_coffee", {
+minetest.register_craftitem(":farming:grain_coffee", {
 	description = S("Grain Coffee"),
 	inventory_image = "farming_roasted_powder.png",
 	groups = {food_grain_powder = 1, flammable = 2},

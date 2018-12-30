@@ -17,5 +17,7 @@ basic_functions.import_settingtype(farming_craft.path .. "/settingtypes.txt")
 
 dofile(farming_craft.path .. "/api.lua") -- several foods out of crops
 dofile(farming_craft.path .. "/food.lua") -- several foods out of crops
+dofile(farming_craft.path .. "/coffee.lua") -- several foods out of crops
+dofile(farming_craft.path .. "/utensils.lua") -- several foods out of crops
 
 minetest.log("action", "[MOD]"..minetest.get_current_modname().." -- loaded ")

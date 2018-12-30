@@ -20,7 +20,7 @@ minetest.register_craft({
 	type = "cooking",
 	cooktime = 2,
 	output = "farming:sugar 3",
-	recipe = "default:sugarbeet_seed",
+	recipe = "farming:sugarbeet_seed",
 })
 
 
@@ -289,3 +289,65 @@ if basic_functions.has_value(modlist,"wool") then
 		recipe={"farming:hemp_fibre","farming:hemp_fibre","farming:hemp_fibre","farming:hemp_fibre"},
 		})
 end
+
+--copied from farming_mod
+-- sliced bread
+minetest.register_craftitem(":farming:bread_slice", {
+	description = S("Sliced Bread"),
+	inventory_image = "farming_bread_slice.png",
+	on_use = minetest.item_eat(1),
+	groups = {food_bread_slice = 1, flammable = 2},
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = "farming:bread_slice 5",
+	recipe = {"farming:bread", "group:food_cutting_board"},
+	replacements = {{"group:food_cutting_board", "farming:cutting_board"}},
+})
+
+-- toast
+minetest.register_craftitem(":farming:toast", {
+	description = S("Toast"),
+	inventory_image = "farming_toast.png",
+	on_use = minetest.item_eat(1),
+	groups = {food_toast = 1, flammable = 2},
+})
+
+minetest.register_craft({
+	type = "cooking",
+	cooktime = 3,
+	output = "farming:toast",
+	recipe = "farming:bread_slice"
+})
+
+-- toast sandwich
+minetest.register_craftitem(":farming:toast_sandwich", {
+	description = S("Toast Sandwich"),
+	inventory_image = "farming_toast_sandwich.png",
+	on_use = minetest.item_eat(4),
+	groups = {flammable = 2},
+})
+
+minetest.register_craft({
+	output = "farming:toast_sandwich",
+	recipe = {
+		{"farming:bread_slice"},
+		{"farming:toast"},
+		{"farming:bread_slice"},
+	}
+})
+
+minetest.register_craftitem(":farming:smoothie", {
+	description = S("Smoothie"),
+	inventory_image = "farming_smoothie.png",
+	groups = {flammable = 3},
+	drink_hp=10,
+	on_use = minetest.item_eat(2),
+})
+minetest.register_craft({
+	type = "shapeless",
+	output = "farming:smoothie 3",
+	recipe = {"vessels:drinking_glass","vessels:drinking_glass","vessels:drinking_glass", "farming:blueberry_seed", 
+		"farming:strawberry_seed","farming:raspberry_seed"},
+})
