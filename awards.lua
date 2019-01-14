@@ -34,17 +34,6 @@ if minetest.get_modpath("awards") then
 			}
 		})
 
-		awards.register_achievement("farming_cultured_wheat", {
-			title = ("Cultured Wheat"),
-			description = ("You got your first cultured wheat"),
-			icon = "farming_awards_cultured_wheat.png",
-			trigger = {
-				type = "dig",
-				item = "farming:culturedwheat",
-				target = 1
-			}
-		})
-
 		awards.register_achievement("farming_farmer", {
 			title = ("Advanced Farmer"),
 			description = ("You are an advanced farmer"),
