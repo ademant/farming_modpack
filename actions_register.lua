@@ -128,7 +128,8 @@ end
 
 -- function for digging crops
 -- if dug with scythe by change you harvest more
-farming.dig_harvest = function(pos, node, digger)
+--farming.dig_harvest = function(pos, node, digger)
+farming.register_on_harvest(function(pos, node, digger)
 	local starttime=os.clock()
 
 	local def = minetest.registered_nodes[node.name]
@@ -145,7 +146,7 @@ farming.dig_harvest = function(pos, node, digger)
 --	print(dump(def.drop))
 	minetest.node_dig(pos,node,digger)
 	--table.insert(farming.time_digharvest,1000*(os.clock()-starttime))
-end
+end)
 
 -- timer function for infected plants
 -- the step of plant is reduced till zero then the plant dies

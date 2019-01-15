@@ -28,6 +28,7 @@ farming.health_threshold =  tonumber(minetest.settings:get("farming.health_thres
 farming.factor_regrow =  tonumber(minetest.settings:get("farming.factor_regrow")) or 2
 farming.abm_planting =  tonumber(minetest.settings:get("farming.abm_planting")) or 30
 farming.abm_planting_change =  tonumber(minetest.settings:get("farming.abm_planting_change")) or 750
+farming.registered_on_harvest={}
 
 -- node type, where grain can be randomly found
 farming.change_soil = {}
