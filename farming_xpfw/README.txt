@@ -1,8 +1,9 @@
-Minetest Game mod: farming awards
+Minetest Game mod: farming XPFW
 ==========================
 See license.txt for license information.
 
-Mod for giving some awards for farming.
+Mod for extending the farming mod with statistics with xpfw.
+
 
 Authors of source code
 ----------------------

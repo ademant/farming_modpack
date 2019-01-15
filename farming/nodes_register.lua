@@ -358,6 +358,7 @@ farming.register_steps = function(sdef)
 				fixed = {-0.5, -0.5, -0.5, 0.5, -5/16, 0.5},},
 			sounds = default.node_sound_leaves_defaults(),
 			drop_item=dropitem,
+			drop_coutn=1,
 			drop={items={{items={dropitem}}}},
 			tiles={sdef.basepng.."_"..i..".png"},
 			place_param2=sdef.place_param2,
@@ -457,7 +458,7 @@ farming.register_steps = function(sdef)
 
 			if sdef.groups.punchable and i > 1 then
 				ndef.pre_step = stepname.. (i - 1)
-				ndef.on_punch = farming.punch_step
+				ndef.on_punch = farming.on_punching
 			end
 			
 			if sdef.groups.seed_extractable then
