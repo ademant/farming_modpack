@@ -28,10 +28,6 @@ farming.health_threshold =  tonumber(minetest.settings:get("farming.health_thres
 farming.factor_regrow =  tonumber(minetest.settings:get("farming.factor_regrow")) or 2
 farming.abm_planting =  tonumber(minetest.settings:get("farming.abm_planting")) or 30
 farming.abm_planting_change =  tonumber(minetest.settings:get("farming.abm_planting_change")) or 750
-farming.registered_on_harvest={}
-farming.registered_on_punching={}
-farming.registered_on_count_harvest={}
-farming.registered_on_count_punching={}
 
 -- node type, where grain can be randomly found
 farming.change_soil = {}
@@ -65,5 +61,3 @@ farming.light_stat = basic_functions.import_csv(farming.path.."/light_stat.txt",
 	col_num={"day_start","amount","name"}})
 
 
-farming.register_on_count_punching(function(playername,item,count) end)
-farming.register_on_count_harvest(function(playername,item,count) end)

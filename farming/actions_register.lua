@@ -91,8 +91,7 @@ end
 -- function for handle punching of a crop
 -- if at last step than go back one step and give puncher one fruit
 -- then start timer again
---farming.punch_step = function(pos, node, puncher, pointed_thing)
-farming.register_on_punching(function(pos, node, puncher, pointed_thing)
+farming.punch_step = function(pos, node, puncher, pointed_thing)
 	local starttime=os.clock()
 
 	local def = minetest.registered_nodes[node.name]
@@ -109,7 +108,6 @@ farming.register_on_punching(function(pos, node, puncher, pointed_thing)
 	if puncher ~= nil and puncher:get_player_name() ~= "" then
 		-- give one item only if no billhook is used
 		puncher:get_inventory():add_item('main',def.drop_item)
-		farming.ping_punch(puncher:get_player_name(),def.drop_item,1)
 	end
 
 	minetest.swap_node(pos, {name=def.pre_step,
@@ -124,15 +122,13 @@ farming.register_on_punching(function(pos, node, puncher, pointed_thing)
 		local waittime=math.random(pre_def.grow_time_min or 100, pre_def.grow_time_max or 200) * farming.factor_regrow
 		minetest.get_node_timer(pos):start(math.random(pre_def.grow_time_min or 100, pre_def.grow_time_max or 200))
 	end
-	--table.insert(farming.time_plantpunch,1000*(os.clock()-starttime))
 	return 
-end)
-
+end
+minetest.register_on_punchnode(farming.punch_step(pos, node, puncher, pointed_thing))
 -- function for digging crops
 -- if dug with scythe by change you harvest more
---farming.dig_harvest = function(pos, node, digger)
-farming.register_on_harvest(function(pos, node, digger)
-	local starttime=os.clock()
+farming.dig_harvest = function(pos, node, digger)
+--	local starttime=os.clock()
 
 	local def = minetest.registered_nodes[node.name]
 	local tool_def = digger:get_wielded_item():get_definition()
@@ -141,15 +137,15 @@ farming.register_on_harvest(function(pos, node, digger)
 		if tool_def.farming_change ~= nil then
 			if math.random(1,tool_def.farming_change)==1 then
 				digger:get_inventory():add_item('main',def.drop_item)
-				farming.ping_harvest(digger:get_player_name(),def.drop_item,1)
 			end
 		end
 	end
 
 --	print(dump(def.drop))
-	minetest.node_dig(pos,node,digger)
+--	minetest.node_dig(pos,node,digger)
 	--table.insert(farming.time_digharvest,1000*(os.clock()-starttime))
-end)
+end
+minetest.register_on_dignode(farming.dig_harvest(pos, node, digger))
 
 -- timer function for infected plants
 -- the step of plant is reduced till zero then the plant dies

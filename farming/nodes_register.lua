@@ -432,7 +432,7 @@ farming.register_steps = function(sdef)
 				  ndef.groups[colu] = sdef.groups[colu]
 				end
 			end
-			ndef.on_dig = farming.dig_harvest
+--			ndef.on_dig = farming.dig_harvest
 			if sdef.groups.wiltable  then
 
 				local nowilt=sdef.groups.wiltable
