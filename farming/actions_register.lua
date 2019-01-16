@@ -109,7 +109,16 @@ farming.punch_step = function(pos, node, puncher, pointed_thing)
 		-- give one item only if no billhook is used
 		puncher:get_inventory():add_item('main',def.drop_item)
 	end
+	
+	local tool_def = puncher:get_wielded_item():get_definition()
 
+	if tool_def.groups.billhook then
+		-- when using a billhook give one more item by chance 1:3
+		if math.random(1,tdef.farming_change) == 1 then
+			puncher:get_inventory():add_item('main',def.drop_item)
+		end
+	end
+	
 	minetest.swap_node(pos, {name=def.pre_step,
 		param2=def.place_param2 or 3})
 	

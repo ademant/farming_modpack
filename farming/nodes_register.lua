@@ -458,7 +458,7 @@ farming.register_steps = function(sdef)
 
 			if sdef.groups.punchable and i > 1 then
 				ndef.pre_step = stepname.. (i - 1)
-				ndef.on_punch = farming.on_punching
+--				ndef.on_punch = farming.punch_step
 			end
 			
 			if sdef.groups.seed_extractable then

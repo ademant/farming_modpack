@@ -10,11 +10,6 @@ farming.register_billhook = function(name,def)
   if def.max_uses == nil then
 	def.max_uses = 30
   end
-  if def.on_use == nil then
-	def.on_use = function(itemstack, user, pointed_thing)
-			return farming.use_billhook(itemstack, user, pointed_thing, def.max_uses)
-		end
-  end
   if not def.recipe then
 	def.recipe = {
 		{"", def.material, def.material},
