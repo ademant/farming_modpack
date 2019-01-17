@@ -40,9 +40,15 @@ if minetest.get_modpath("awards") then
 			icon = "farming_awards_farmer.png",
 			trigger = {
 				type = "dig",
-				item = "groups:for_flour",
+				item = "group:for_flour",
 				target = 100
 			}
+		})
+		
+		awards.register_achievement("farming_gatherer", {
+			title = ("Advanced Gatherer"),
+			description = ("You are an advanced gatherer"),
+			icon = "farming_awards_gatherer.png",
 		})
 		
 		awards.register_achievement("farming_miller", {
