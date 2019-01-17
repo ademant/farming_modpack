@@ -359,7 +359,8 @@ farming.register_steps = function(sdef)
 			sounds = default.node_sound_leaves_defaults(),
 			drop_item=dropitem,
 			drop_coutn=1,
-			drop={items={{items={dropitem}}}},
+			drop={items={{items={dropitem}},
+					{items={dropitem},tools="farming:scythe",rarity=10}}}, --one more by digging with scythe
 			tiles={sdef.basepng.."_"..i..".png"},
 			place_param2=sdef.place_param2,
 			groups = {snappy = 3, flammable = 2,flora=1, plant = 1, 
@@ -421,7 +422,7 @@ farming.register_steps = function(sdef)
 		local step_harvest = math.floor(reli*sdef.harvest_max + 0.05)
 		if step_harvest > 1 then
 		  for h = 2,step_harvest do
-			table.insert(ndef.drop.items,1,{items={dropitem},rarity=(max_step - i + 1)*h})
+			table.insert(ndef.drop.items,1,{items={dropitem}})--,rarity=(max_step - i + 1)*h})
 		  end
 		end
 

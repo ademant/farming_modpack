@@ -64,18 +64,19 @@ farming.plant_infect = function(pos)
 end
 
 -- cures a plant at pos, restoring at last saved step
-farming.plant_cured = function(pos)
+farming.plant_cured = function(pos, node, digger)
 	local starttime=os.clock()
 
-	local node = minetest.get_node(pos)
+--	local node = minetest.get_node(pos)
 	local name = node.name
 	local def = minetest.registered_nodes[name]
 	local meta = minetest.get_meta(pos)
 	local cured_step=meta:get_int("farming:step")
-	if cured_step == nil then cured_stel = 1 end
+	if (cured_step == nil) or (cured_step <= 0) then cured_step = 1 end
 	local cured_name=def.step_name.."_"..cured_step
 
 	if not minetest.registered_nodes[cured_name] then
+		minetest.node_dig(pos,node,digger)
 		return 
 	end
 
@@ -113,9 +114,11 @@ farming.punch_step = function(pos, node, puncher, pointed_thing)
 	local tool_def = puncher:get_wielded_item():get_definition()
 
 	if tool_def.groups.billhook then
-		-- when using a billhook give one more item by chance 1:3
-		if math.random(1,tdef.farming_change) == 1 then
-			puncher:get_inventory():add_item('main',def.drop_item)
+		-- when using a billhook give one more item by chance 
+		if tool_def.farming_change ~= nil then
+			if math.random(1,tool_def.farming_change)==1 then
+				puncher:get_inventory():add_item('main',def.drop_item)
+			end
 		end
 	end
 	
@@ -175,7 +178,7 @@ farming.timer_infect = function(pos,elapsed)
 	end
 
 	-- if zero step is reached, plant dies
-	if meta:get_int("farming:step") == 0 then
+	if meta:get_int("farming:step") <= 0 then
 		minetest.swap_node(pos, {name="default:grass_"..math.random(1,4)})
 		return
 	end
