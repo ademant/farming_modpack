@@ -133,7 +133,8 @@ farming.punch_step = function(pos, node, puncher, pointed_thing)
 	end
 	return 
 end
-minetest.register_on_punchnode(farming.punch_step(pos, node, puncher, pointed_thing))
+
+minetest.register_on_punchnode(farming.punch_step)
 -- function for digging crops
 -- if dug with scythe by change you harvest more
 farming.dig_harvest = function(pos, node, digger)
@@ -154,7 +155,7 @@ farming.dig_harvest = function(pos, node, digger)
 --	minetest.node_dig(pos,node,digger)
 	--table.insert(farming.time_digharvest,1000*(os.clock()-starttime))
 end
-minetest.register_on_dignode(farming.dig_harvest(pos, node, digger))
+minetest.register_on_dignode(farming.dig_harvest)
 
 -- timer function for infected plants
 -- the step of plant is reduced till zero then the plant dies

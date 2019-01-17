@@ -1,2 +1,2 @@
-farming_xpfw.punch_scale (Experience level for punching) int 50 10 1000
-farming_xpfw.dig_scale (Experience level for diggin) int 50 10 1000
+farming_xpfw.punch_scale (Experience level for punching) int 10 10 1000
+farming_xpfw.dig_scale (Experience level for diggin) int 10 10 1000
