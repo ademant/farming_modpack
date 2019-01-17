@@ -226,7 +226,7 @@ farming.timer_step = function(pos, elapsed)
 
 	local def = minetest.registered_nodes[minetest.get_node(pos).name]
 
-	-- check for enough light
+	-- if no next step define: exit
 	if not def.next_step then
 		return
 	end
@@ -234,6 +234,7 @@ farming.timer_step = function(pos, elapsed)
 	local light = minetest.get_node_light(pos)
 	local pdef=farming.registered_plants[def.plant_name]
 
+	-- if too less or too much light: Wait more time
 	if not light or light < pdef.light_min or light > pdef.light_max then
 		minetest.get_node_timer(pos):start(math.random(farming.wait_min, farming.wait_max))
 		return

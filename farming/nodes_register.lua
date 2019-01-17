@@ -216,6 +216,7 @@ farming.register_infect=function(idef)
 	minetest.register_node(":" .. idef.name.."_infected", infect_def)
 --	print("time register infect "..1000*(os.clock()-starttime))
 end
+
 farming.register_wilt=function(idef)
 --	local starttime=os.clock()
 	if not idef.wilt_name then
@@ -235,6 +236,8 @@ farming.register_wilt=function(idef)
 		on_timer = farming.timer_wilt,
 		place_param2=idef.place_param2,
 		groups = {snappy = 3, attached_node = 1, flammable = 2,farming_wilt=1},
+		grow_time_min=farming.wilt_removal_time,
+		grow_time_max=math.ceil(1.1*farming.wilt_removal_time),
 	}
 
 	if idef.straw then
@@ -447,7 +450,7 @@ farming.register_steps = function(sdef)
 				end
 
 				ndef.on_timer = farming.timer_step
-				ndef.grow_time_min=sdef.wilt_time or 10
+				ndef.grow_time_min=sdef.wilt_time or 540
 				ndef.grow_time_max=math.ceil(ndef.grow_time_min*1.1)
 			end
 
