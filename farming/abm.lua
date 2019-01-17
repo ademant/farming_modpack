@@ -114,7 +114,8 @@ minetest.register_abm({
 		-- first check if any crops are nearby, because the counting
 		-- of nearby crops is time consuming
 		if minetest.find_node_near(pos,4,"group:farming") ~= nil then
-			if #minetest.find_nodes_in_area(vector.subtract(pos,4),vector.add(pos,4),"group:farming") > 2 then
+			local count_crops=farming.abm_near_rarity*#minetest.find_nodes_in_area(vector.subtract(pos,4),vector.add(pos,4),"group:farming")
+			if math.random(1,math.ceil(count_crops)) > 1 then
 				return
 			end
 		end

@@ -363,7 +363,7 @@ farming.register_steps = function(sdef)
 			drop_item=dropitem,
 			drop_coutn=1,
 			drop={items={{items={dropitem}},
-					{items={dropitem},tools="farming:scythe",rarity=10}}}, --one more by digging with scythe
+					{items={dropitem},tools={"farming:scythe"},rarity=10}}}, --one more by digging with scythe
 			tiles={sdef.basepng.."_"..i..".png"},
 			place_param2=sdef.place_param2,
 			groups = {snappy = 3, flammable = 2,flora=1, plant = 1, 
@@ -457,7 +457,7 @@ farming.register_steps = function(sdef)
 			-- at the end stage you can harvest by change a cultured seed (if defined)
 			if sdef.next_plant then
 			  local next_plant_rarity = (max_step - i + 1)*2
-			  --table.insert(ndef.drop.items,1,{items={sdef.next_plant},rarity=next_plant_rarity})
+			  table.insert(ndef.drop.items,1,{items={sdef.next_plant},tools={"farming:scythe"},rarity=next_plant_rarity})
 			end
 
 			if sdef.groups.punchable and i > 1 then

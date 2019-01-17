@@ -9,3 +9,4 @@ farming.health_threshold (healthiness threshold) int 50 1 100
 farming.factor_regrow (factor for regrow after punching) float 2
 farming.abm_planting (time intervall for abm planting) int 30 5 500
 farming.abm_planting_change (change for abm planting for execution) int 750 5 20000
+farming.abm_near_rarity (Rarety factor for planting near existing plants) int 2 2 100
