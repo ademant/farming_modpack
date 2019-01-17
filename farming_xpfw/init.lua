@@ -10,5 +10,6 @@ basic_functions.import_settingtype(farming_xpfw.path .. "/settingtypes.txt")
 dofile(minetest.get_modpath("farming_xpfw") .. "/config.lua") 
 dofile(minetest.get_modpath("farming_xpfw") .. "/api.lua") 
 dofile(minetest.get_modpath("farming_xpfw") .. "/register.lua") 
+dofile(minetest.get_modpath("farming_xpfw") .. "/awards.lua") 
 
 minetest.log("action", "[MOD]"..minetest.get_current_modname().." -- loaded ")

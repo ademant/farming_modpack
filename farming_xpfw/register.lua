@@ -29,6 +29,10 @@ minetest.register_on_punchnode(function(pos, node, puncher, pointed_thing)
 		-- add half point additional, if using billhook
 		xpfw.player_add_attribute(puncher,"punch_fruits",0.5)
 	end
+	
+	if xpfw.player_get_attribute(puncher,"punch_fruits")>100 then
+		awards.unlock(puncher:get_player_name(),"farming_gatherer")
+	end
 
 end)
 
