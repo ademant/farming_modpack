@@ -106,21 +106,22 @@ farming.punch_step = function(pos, node, puncher, pointed_thing)
 		return
 	end
 
+	
 	if puncher ~= nil and puncher:get_player_name() ~= "" then
 		-- give one item only if no billhook is used
 		puncher:get_inventory():add_item('main',def.drop_item)
-	end
-	
-	local tool_def = puncher:get_wielded_item():get_definition()
+		local tool_def = puncher:get_wielded_item():get_definition()
 
-	if tool_def.groups.billhook then
-		-- when using a billhook give one more item by chance 
-		if tool_def.farming_change ~= nil then
-			if math.random(1,tool_def.farming_change)==1 then
-				puncher:get_inventory():add_item('main',def.drop_item)
+		if tool_def.groups.billhook then
+			-- when using a billhook give one more item by chance 
+			if tool_def.farming_change ~= nil then
+				if math.random(1,tool_def.farming_change)==1 then
+					puncher:get_inventory():add_item('main',def.drop_item)
+				end
 			end
 		end
 	end
+	
 	
 	minetest.swap_node(pos, {name=def.pre_step,
 		param2=def.place_param2 or 3})
@@ -144,6 +145,9 @@ farming.dig_harvest = function(pos, node, digger)
 --	local starttime=os.clock()
 
 	local def = minetest.registered_nodes[node.name]
+	if digger == nil then
+		return
+	end
 	local tool_def = digger:get_wielded_item():get_definition()
 
 	if tool_def.groups.scythe and def.drop_item then
