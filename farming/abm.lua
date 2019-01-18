@@ -7,20 +7,23 @@ minetest.register_abm({
 	action = function(pos, node)
 		local starttime=os.clock()
 		local n_def = minetest.registered_nodes[node.name] or nil
+		if not n_def then
+			return
+		end
 		local wet = n_def.soil.wet or nil
 		local base = n_def.soil.base or nil
 		local dry = n_def.soil.dry or nil
-		if not n_def or not n_def.soil or not wet or not base or not dry then
+		if not n_def.soil or not wet or not base or not dry then
 			return
 		end
 
-		pos.y = pos.y + 1
-		local nn = minetest.get_node_or_nil(pos)
+--		pos.y = pos.y + 1
+		local nn = minetest.get_node_or_nil({x=pos.x,y=pos.y+1,z=pos.z})
 		if not nn or not nn.name then
 			return
 		end
 		local nn_def = minetest.registered_nodes[nn.name] or nil
-		pos.y = pos.y - 1
+--		pos.y = pos.y - 1
 
 		if nn_def and nn_def.walkable and minetest.get_item_group(nn.name, "plant") == 0 then
 			minetest.set_node(pos, {name = base})
