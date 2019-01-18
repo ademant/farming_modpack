@@ -119,7 +119,7 @@ farming.register_plant = function(def)
     
     -- if defined special roast, grind item or seed to drop,
     -- check if the item already exist. when not than register it.
-    for _,it in ipairs({"roast","grind","seed_drop"}) do
+    for _,it in ipairs({"grind","seed_drop"}) do
 		if def[it] ~= nil then
 			if minetest.registered_craftitems[def[it]] == nil then
 				farming.register_craftitem(def[it])
@@ -144,6 +144,7 @@ farming.register_plant = function(def)
     end
 
     if def_groups["seed_roastable"] then
+--		print(dump2(def))
 		farming.register_roast(def)
     end
 
