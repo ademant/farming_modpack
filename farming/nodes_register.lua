@@ -179,6 +179,7 @@ farming.register_harvest=function(hdef) --time optimised
 end
 
 farming.register_craftitem = function(itemname)
+--	local starttime=os.clock()
 	local desc = itemname:split(":")[2]
 	local item_def={
 		description = S(desc:gsub("^%l", string.upper)),
@@ -186,6 +187,7 @@ farming.register_craftitem = function(itemname)
 		groups = {flammable = 2},
 	}
 	minetest.register_craftitem(":"..itemname,item_def)
+--	print("register craftitem "..math.ceil(1000*(os.clock()-starttime)))
 end
 
 farming.register_infect=function(idef)
@@ -259,9 +261,13 @@ end
 
 farming.register_seed=function(sdef) --time optimised
 --	local starttime=os.clock()
+	local invimage=sdef.seed_name:gsub(":","_")..".png"
     local seed_def = {
 		description=S(sdef.name:gsub("^%l", string.upper).." Seed"),
 		next_step = sdef.step_name .. "_1",
+		inventory_image = invimage,
+		tiles = {invimage},
+		wield_image = {invimage},
 		drawtype = "signlike",
 		paramtype = "light",
 		paramtype2 = "wallmounted",
@@ -282,21 +288,17 @@ farming.register_seed=function(sdef) --time optimised
 		groups = {farming_seed = 1, snappy = 3, attached_node = 1, flammable = 2},
 	}
 	
-	for i,colu in ipairs({"fertility","plant_name","grow_time_min","grow_time_max","light_min"}) do
+	for _,colu in ipairs({"fertility","plant_name","grow_time_min","grow_time_max","light_min"}) do
 	  seed_def[colu] = sdef[colu]
 	end
-	
-	local invimage=sdef.seed_name:gsub(":","_")..".png"
-	seed_def.inventory_image = invimage
-	seed_def.tiles = {invimage}
-	seed_def.wield_image = {invimage}
 	seed_def.groups[sdef.mod_name] = 1
 	
-	for k, v in pairs(sdef.fertility) do
+	
+	for _, v in pairs(sdef.fertility) do
 		seed_def.groups[v] = 1
 	end
 	
-	for i,colu in ipairs({"on_soil","for_flour"}) do 
+	for _,colu in ipairs({"on_soil","for_flour"}) do 
 		if sdef.groups[colu] then
 		  seed_def.groups[colu] = sdef.groups[colu]
 		end
@@ -348,53 +350,51 @@ farming.register_steps = function(sdef)
 		viscosity=sdef.groups.liquid_viscosity
 	end
 	
+	
+	local gdef={
+		drawtype = "plantlike",
+		waving = 1,
+		paramtype = "light",
+		walkable = false,
+		buildable_to = true,
+		selection_box = {type = "fixed",
+			fixed = {-0.5, -0.5, -0.5, 0.5, -5/16, 0.5},},
+		sounds = default.node_sound_leaves_defaults(),
+		drop_item=dropitem,
+		drop_count=1,
+		drop={items={{items={dropitem}},
+				{items={dropitem},tools={"farming:scythe"},rarity=10}}}, --one more by digging with scythe
+		place_param2=sdef.place_param2,
+		groups = {snappy = 3, flammable = 2,flora=1, plant = 1, 
+			not_in_creative_inventory = 1, attached_node = 1,
+			},
+	}
+	for _,colu in ipairs({"grow_time_min","grow_time_max","light_min","plant_name"}) do
+		gdef[colu]=sdef[colu]
+	end
+	for _,colu in ipairs({"infectable","snappy","damage_per_second","liquid_viscosity","wiltable"}) do
+		if sdef.groups[colu] then
+		  gdef.groups[colu] = sdef.groups[colu]
+		end
+	end
+	gdef.groups[sdef.mod_name]=1
+	gdef.groups[sdef.plant_name]=1
+	if sdef.groups.use_trellis then
+		table.insert(gdef.drop.items,1,{items={"farming:trellis"}})
+	end
+		
 	local max_step=sdef.steps
 	local stepname=sdef.step_name.."_"
 	for i=1,max_step do
 		local reli=i/max_step
-	    local ndef={description=stepname..i,
-			drawtype = "plantlike",
-			waving = 1,
-			paramtype = "light",
-			walkable = false,
-			buildable_to = true,
-			selection_box = {type = "fixed",
-				fixed = {-0.5, -0.5, -0.5, 0.5, -5/16, 0.5},},
-			sounds = default.node_sound_leaves_defaults(),
-			drop_item=dropitem,
-			drop_coutn=1,
-			drop={items={{items={dropitem}},
-					{items={dropitem},tools={"farming:scythe"},rarity=10}}}, --one more by digging with scythe
-			tiles={sdef.basepng.."_"..i..".png"},
-			place_param2=sdef.place_param2,
-			groups = {snappy = 3, flammable = 2,flora=1, plant = 1, 
-				not_in_creative_inventory = 1, attached_node = 1,
-				step=i,
-				},
-		}
-		
-	    for _,colu in ipairs({"grow_time_min","grow_time_max","light_min","plant_name"}) do
-			ndef[colu]=sdef[colu]
-		end
-		
-		for _,colu in ipairs({"infectable","snappy","damage_per_second","liquid_viscosity","wiltable"}) do
-			if sdef.groups[colu] then
-			  ndef.groups[colu] = sdef.groups[colu]
-			end
-		end
-		
-		ndef.groups[sdef.mod_name]=1
-		ndef.groups[sdef.plant_name]=1
-		if sdef.groups.use_trellis then
-			table.insert(ndef.drop.items,1,{items={"farming:trellis"}})
-		end
-
+		local ndef=table.copy(gdef)
+		ndef.description=stepname..i
+		ndef.tiles={sdef.basepng.."_"..i..".png"}
+		ndef.groups.step=i
 		if i < max_step then
 			ndef.groups["farming_grows"]=1 -- plant is growing
 			ndef.next_step=stepname.. (i + 1)
 			ndef.on_timer = farming.timer_step
-			ndef.grow_time_min=sdef.grow_time_min
-			ndef.grow_time_max=sdef.grow_time_max
 		end
 
 		-- hurting and viscosity not for first step, which is used for random generation
@@ -463,7 +463,6 @@ farming.register_steps = function(sdef)
 
 			if sdef.groups.punchable and i > 1 then
 				ndef.pre_step = stepname.. (i - 1)
---				ndef.on_punch = farming.punch_step
 			end
 			
 			if sdef.groups.seed_extractable then
@@ -504,7 +503,7 @@ function farming.craft_seed(gdef)
 end
 
 function farming.register_coffee(cdef)
-	local starttime=os.clock()
+--	local starttime=os.clock()
 	if not cdef.coffeepowder then
 		return
 	end
@@ -540,7 +539,7 @@ end
 
 -- registering roast items if needed for plant
 function farming.register_roast(rdef)
-	local starttime=os.clock()
+--	local starttime=os.clock()
 	if not rdef.seed_name then
 		return
 	end
@@ -594,7 +593,7 @@ end
 
 -- registering grind items
 function farming.register_grind(rdef)
-	local starttime=os.clock()
+--	local starttime=os.clock()
 	if rdef.seed_name == nil then
 		return
 	end
