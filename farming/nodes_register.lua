@@ -557,6 +557,8 @@ function farming.register_roast(rdef)
 	if minetest.registered_craftitems[roastitem] == nil then
 		local roast_png = roastitem:gsub(":","_")..".png"
 		local rn = roastitem:split(":")[2]
+		-- check for proper definition of roastitem
+		if rn == nil then return end
 		rn=rn:gsub("_"," ")
 		
 		local roast_def={
