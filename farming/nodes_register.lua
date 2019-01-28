@@ -107,10 +107,13 @@ farming.register_plant = function(def)
 		local spread_def={name=def.step_name.."_1",
 				temp_min=edef.temperature_min,temp_max=edef.temperature_max,
 				hum_min=edef.humidity_min,hum_max=edef.humidity_max,
-				y_min=edef.elevation_min,y_max=edef.elevation_max,base_rate = math.floor(math.log(def.spread_rate*1e10)),
+				y_min=edef.elevation_min,y_max=edef.elevation_max,base_rate = math.floor(math.log(def.spread_rate)),
 				light_min=edef.light_min,light_max=edef.light_max}
 		farming.min_light = math.min(farming.min_light,edef.light_min)
-		table.insert(farming.spreading_crops,1,spread_def)
+		-- add crop to spreading list, if base rate > 0
+		if spread_def.base_rate > 0 then
+			table.insert(farming.spreading_crops,1,spread_def)
+		end
 	end
 	
     if def_groups["infectable"] then
