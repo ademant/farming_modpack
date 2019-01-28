@@ -309,7 +309,9 @@ farming.register_seed=function(sdef) --time optimised
 		if sdef.eat_hp then
 			eat_hp=sdef.eat_hp
 		end
-		seed_def.on_use=minetest.item_eat(eat_hp)
+		if eat_hp>0 then
+			seed_def.on_use=minetest.item_eat(eat_hp)
+		end
 		if sdef.eat_hp then
 			seed_def.groups["eatable"]=sdef.eat_hp
 		end
