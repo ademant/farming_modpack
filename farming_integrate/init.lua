@@ -10,4 +10,7 @@ if minetest.get_modpath("ethereal") ~= nil then
 	dofile(minetest.get_modpath("farming_integrate") .. "/ethereal.lua") 
 end
 
+if minetest.get_modpath("mobs_animal") ~= nil then
+	dofile(minetest.get_modpath("farming_integrate") .. "/mobs_animal.lua") 
+end
 minetest.log("action", "[MOD]"..minetest.get_current_modname().." -- loaded ")
