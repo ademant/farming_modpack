@@ -72,7 +72,11 @@ if minetest.get_modpath("mobs_animal") ~= nil then
 		minetest.register_entity(":mobs_animal:pumba",cow_def)
 	end
 	if minetest.registered_entities["mobs_animal:bunny"] then
-		table.insert(cow_def.replace_what,"group:carrot")
+		if cow_def.replace_what then
+			table.insert(cow_def.replace_what,"group:carrot")
+		else
+			cow_def.replace_what="group:carrot"
+		end
 		minetest.register_entity(":mobs_animal:pumba",cow_def)
 	end
 end
