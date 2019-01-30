@@ -21,7 +21,11 @@ if minetest.get_modpath("mobs_animal") ~= nil then
 		table.insert(cow_def.follow,"farming:spelt")
 		table.insert(cow_def.follow,"farming:culturewheat")
 		table.insert(cow_def.follow,"farming:wildoat")
-		table.insert(cow_def.replace_what,{"group:barley","air",0})
+		if cow_def.replace_what then
+			table.insert(cow_def.replace_what,{"group:barley","air",0})
+		else
+			cow_def.replace_what={"group:barley","air",0}
+		end
 		table.insert(cow_def.replace_what,{"group:wheat","air",0})
 		table.insert(cow_def.replace_what,{"group:spelt","air",0})
 		table.insert(cow_def.replace_what,{"group:culturewheat","air",0})
@@ -33,7 +37,11 @@ if minetest.get_modpath("mobs_animal") ~= nil then
 	if minetest.registered_entities["mobs_animal:chicken"] then
 		local cow_def=minetest.registered_entities["mobs_animal:chicken"]
 		table.insert(cow_def.follow,"group:farming_seed")
-		table.insert(cow_def.replace_what,{"group:farming_seed","air",0})
+		if cow_def.replace_what then
+			table.insert(cow_def.replace_what,{"group:farming_seed","air",0})
+		else
+			cow_def.replace_what={"group:farming_seed","air",0}
+		end
 		minetest.register_entity(":mobs_animal:chicken",cow_def)
 	end
 	if minetest.registered_entities["mobs_animal:rat"] then
