@@ -59,6 +59,7 @@ if minetest.get_modpath("mobs_animal") ~= nil then
 		minetest.register_entity(":mobs_animal:rat",cow_def)
 	end
 	if minetest.registered_entities["mobs_animal:pumba"] then
+		local cow_def=minetest.registered_entities["mobs_animal:pumba"]
 		if cow_def.replace_what then
 			table.insert(cow_def.replace_what,{"group:beetroot","air",0})
 		else
