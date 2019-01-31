@@ -97,6 +97,8 @@ farming.punch_step = function(pos, node, puncher, pointed_thing)
 
 	local def = minetest.registered_nodes[node.name]
 
+	if def == nil then return end
+	
 	if def.groups.punchable == nil then
 		return
 	end
