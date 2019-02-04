@@ -39,7 +39,8 @@ end)
 
 minetest.register_on_dignode(function(pos, node, digger)
 	local def = minetest.registered_nodes[node.name]
-
+	if def == nil then return end
+	
 	if def.drop_item == nil then
 		return
 	end
