@@ -13,4 +13,9 @@ end
 if minetest.get_modpath("mobs_animal") ~= nil then
 	dofile(minetest.get_modpath("farming_integrate") .. "/mobs_animal.lua") 
 end
+
+if minetest.get_modpath("treasures") ~= nil then
+	dofile(minetest.get_modpath("farming_integrate") .. "/treasures.lua") 
+end
+
 minetest.log("action", "[MOD]"..minetest.get_current_modname().." -- loaded ")
