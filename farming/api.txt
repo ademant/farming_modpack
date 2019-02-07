@@ -1,53 +1,56 @@
 Farming API
 -----------
 
-The farming API allows you to easily register plants and hoes.
+The farming API allows you to easily register plants.
+A new plant is created by insert a new line in crops.txt and fill the columns. During loading each row is interpreted and the necessary items and craft recipes are registered.
+The description of the column is stated in file crops.lua, where the table is read.
 
-`farming.register_hoe(name, hoe definition)`
- * Register a new hoe, see [#hoe definition]
+The initialisation is done via main function farming.register_plant(plant_def). Depending on definition it calls several helping functions.
 
-`farming.register_plant(name, Plant definition)`
- * Register a new growing plant, see [#Plant definition]
-
-`farming.registered_plants[name] = definition`
- * Table of registered plants, indexed by plant name
-
-### Hoe Definition
-
-
-	{
-		description = "",                      -- Description for tooltip
-		inventory_image = "unknown_item.png",  -- Image to be used as wield- and inventory image
-		max_uses = 30,                         -- Uses until destroyed
-		material = "",                         -- Material for recipes
-		recipe = {                             -- Craft recipe, if material isn't used
-			{"air", "air", "air"},
-			{"", "group:stick"},
-			{"", "group:stick"},
-		}
+-- Table Definition --
+def={
+	name 				= Name of plant,
+	steps 				= Count of growing steps,
+	harvest_max			= Max. amount of harvest for last step with no special tools,
+	rarity_grass_drop 	= Rarity to find seed in drop table of normal grass,
+	rarity_junglegrass_drop = Rarity to find seed in drop table of jungle grass,
+	eat_hp 				= HP-change during eating,
+	drink				= for thirst mod: How much thirst is reduced
+	temperature_min		= Minimum Temperature for plant,
+	temperature_max		= Maximum Temperature for plant,
+	humidity_min		= Min. Humidity,
+	humidity_max		= Max. Humidity,
+	elevation_min		= Min. elevetion where plant can be found,
+	elevation_max		= Max. elevation where plant can be found,
+	light_min			= Min. amount of light needed for planting and growing,
+	light_max			= Max. amount of light, where growing can occur,
+	infect_rate_base	= Infection rate of plant,
+	infect_rate_monoculture	= Infection rate, when plant is in monoculture,
+	spread_rate			= Rate for spreading plant,
+	grow_time_mean		= Mean time between steps in second,
+	wilt_time			= Time of last step to wild,
+	straw				= If plant has harvest to get seed out of with a flail, which kind of straw is given back,
+	seed_drop			= name of dropped seed,
+	grind				= name of grindes item,
+	roast				= name of roasted item
+	group 	= {
+		to_culture		= Plant can not be found in the world, it has to be planted,
+		to_dig			= Plant has to be digged to give harves,
+		has_harvest		= Plant give harvest instead of seed. Out of harvest the seed has to be crafted,
+		on_soil			= Has to be planted on soil; otherwise can be planted on earth, where temperature/humidity is fullfilled,
+		is_bush			= has own mesh,
+		punchable		= can give seed by punching, where the plant is going back one step and regrow after grow_mean_time,
+		wiltable		= plant can wilt,
+		infectable		= plant can be infected,
+		infection_defence	= distance, where plant protect other plants,
+		seed_extractable	= seed has to be extracted by special tool,
+		use_flail		= the seed has to be crafted with farming:flail
+		use_trellis		= for planting you have to craft seed with a trellis,
+		for_coffee		= plant is used for coffee, where roasting and grinding is considered,
+		seed_roastable	= seed can be roasted and eated,
+		seed_grindable	= seed can be grinded,
+		for_flour		= seed is grindable and can be used to craft flour for bread,
+		damage_per_second	= amount of damage per second a player feel if staying inside node,
+		liquid_viscosity	= viscosity for walking through node
 	}
-
-### Plant definition
-
-	{
-		description = "",                      -- Description of seed item
-		inventory_image = "unknown_item.png",  -- Image to be used as seed's wield- and inventory image
-		steps = 8,                             -- How many steps the plant has to grow, until it can be harvested
-		-- ^ Always provide a plant texture for each step, format: modname_plantname_i.png (i = stepnumber)
-		minlight = 13,                         -- Minimum light to grow
-		maxlight = default.LIGHT_MAX           -- Maximum light to grow
-	}
-
-Note: Any crops registered with the above function will use the new growing routines, also if crops are manually added with the {growing=1} group they will also grow.
-
-### Crop functions
-
-If a mod registers nodes to be used as crops using the {growing=1} group then an additional function can be used for custom growth checks instead of the standard 'are we above wet soil'.
-
-growth_check = function(pos, node_name)
-	-- check surrounding for jungle tree
-	if minetest.find_node_near(pos, 1, {"default:jungletree"}) then
-		return false -- place next growth stage
-	end
-	return true -- condition not met, skip next growth stage until next check
-end,
+}

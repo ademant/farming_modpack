@@ -9,13 +9,14 @@ Actual columns:
 				an value	crop is registered with configured features
 	hijack		text		Which crop of other mod should be hijacked (not to use in mod:farming)
 	next_plant	text		For wild crop the name of the cultured crop. By change you get the seed or harvest of the cultured one
-							Should be a name of another crop in this list
+							Must be a name of another crop in this list
 	Rarety					How often the crop spawn in the wild
 	Rarety_grass_drop		Change to get crop as drop item when digging grass
 	Rarety_junglegrass_drop	Change to get crop as drop item when digging jungle grass
 	Steps					Amount of steps the growing needs till full grown plant. Must be set
 	harvest_max				Max. amount of harvest or seed you can dig out of full grown plant
 	eat_hp					eat health point: How many HP you get by eating the seed.
+	drink					for thirst mods: How much Drink point you get by eating the harvest or seed
 	to_culture	void		crop can be generated during mapgen and spawn randomly on grassland
 				any value	crop can not be find randomly on the map. The seed has to be found in the wild form or crafted.
 	to_dig		void

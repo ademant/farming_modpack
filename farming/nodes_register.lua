@@ -71,6 +71,7 @@ farming.register_plant = function(def)
 	if not def.steps then
 		return nil
 	end
+	if not def.name then return end
 	-- check definition
     def = register_plant_check_def(def)
 	-- local definitions

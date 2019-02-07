@@ -18,4 +18,8 @@ if minetest.get_modpath("treasures") ~= nil then
 	dofile(minetest.get_modpath("farming_integrate") .. "/treasures.lua") 
 end
 
+if minetest.get_modpath("lucky_block") ~= nil then
+	dofile(minetest.get_modpath("farming_integrate") .. "/lucky_block.lua") 
+end
+
 minetest.log("action", "[MOD]"..minetest.get_current_modname().." -- loaded ")
