@@ -1,12 +1,15 @@
-Minetest Game mod: farming
-==========================
+#Farming
 See license.txt for license information.
 
+##Short description
 Mod for extending the farming capabilities of minetest. 
+
+##Description
 You have wild crops, which you can cultivate to get faster and more harvest.
 The crops can be infected, where you get nothing. And the infection spreads to nearby crops.
 A culture of crops can be destroyed by the infection, where the cultured variant of crops 
 are easier infected than the wild form.
+
 With special plants (right now nettles) you can make a curing mixture. And other plants can protect the culture.
 You should use special devices to get more fruits:
 - With a scythe you dig the node and by change get one more harvest. The change is better for a steel scythe than for stone or wood
@@ -18,6 +21,7 @@ The defined grow time is modified by the amount of light the crop would see and 
 the position will be (under a tree for example), the longer the crop needs to reach the next step.
 
 The code is written to enable extension by other mods.
+
 You have only one txt file to configure the crops. It's read in a table. Not defined fields are filled,
 if a default row is given. If no default is given, the field is not importet to the crop.
 Based on the definition the behauvior is defined:
@@ -40,61 +44,73 @@ Based on the definition the behauvior is defined:
 	To get a seed of the fruit, you have to use a seed picker. The plant goes back one step and need to regrow booth
 	leaves and seed.
 
-Authors of source code
-----------------------
+##API
+The crops inside farming mod are defined by a single .txt file, where for each crop in a row the whole definition is given.
+
+Each row will by interpreted to generate a data object, which is registered by farming.register_plant. Inside this function all registering are called by functions intended for internal usage.
+
+A detailed description of the txt file is given in crops.lua
+
+Most important function is farming.register_plant(def). The structure of <def> is given in api.txt.
+
+##Authors of source code
+
 Originally by PilzAdam (MIT)
+
 webdesigner97 (MIT)
+
 TenPlus1 (MIT)
+
 ademant (MIT)
+
 Various Minetest developers and contributors (MIT)
 
-Authors of media (textures)
----------------------------
+##Authors of media (textures)
 Created by PilzAdam (CC BY 3.0):
-  farming_bread.png
-  farming_soil.png
-  farming_soil_wet.png
-  farming_soil_wet_side.png
-  farming_string.png
+-  farming_bread.png
+-  farming_soil.png
+-  farming_soil_wet.png
+-  farming_soil_wet_side.png
+-  farming_string.png
 
 Created by BlockMen (CC BY 3.0):
-  farming_tool_steelhoe.png
-  farming_tool_stonehoe.png
-  farming_tool_woodhoe.png
+-  farming_tool_steelhoe.png
+-  farming_tool_stonehoe.png
+-  farming_tool_woodhoe.png
 
 Created by MasterGollum (CC BY 3.0):
-  farming_straw.png
+-  farming_straw.png
 
 Created by Gambit (CC BY 3.0):
-  farming_wheat.png
-  farming_wheat_*.png
-  farming_cotton_*.png
-  farming_flour.png
-  farming_cotton_seed.png
-  farming_wheat_seed.png
+-  farming_wheat.png
+-  farming_wheat_*.png
+-  farming_cotton_*.png
+-  farming_flour.png
+-  farming_cotton_seed.png
+-  farming_wheat_seed.png
 
 Created by Napiophelios (CC BY-SA 3.0):
-  farming_cotton.png
+-  farming_cotton.png
 
 Created by Ten1Plus (CC BY-SA 3.0):
-  farming_hemp.png
-  farming_beetroot
-  farming_strawberry
+-  farming_hemp.png
+-  farming_beetroot
+-  farming_strawberry
   
 Created by ademant (CC BY 3.0):
-  farming_tool_flail.png
-  farming_tool_coffee_grinder.png (based on art by cactus_cowboy on openclipart.org)
-  farming_tool_scythe (based on svg by Rinaldum on wikimedia)
-  farming_tool_billhook (based on svg by Henrysalome on wikimedia)
-  farming_sugerbeet (based on farming_beetroot)
-  farming_blackberry (based on farming_blueberry)
-  farming_blackberry_seed (based on jpg from AlbertCahalan on wikimedia)
-  farming_blueberry_seed (based on jpg from Bateau ivre on wikimedia)
-  farming_strawberry_seed (based on gif from Nicke L on wikimedia)
-  farming_raspberry_seed (based on jpg from AlbertCahalan on wikimedia)
-  farming_mustard
-  farming_spelt (based on farming_barley)
-  farming_hop
-  farming_tobaco (based on pictures of wikimedia)
-  farming_tool_spinningwheal (based on drawing by firkin on opencliparts)
-  farming_yarn (based on picture from ikiwana on wikimedia)
+-  farming_tool_flail.png
+-  farming_tool_coffee_grinder.png (based on art by cactus_cowboy on openclipart.org)
+-  farming_tool_scythe (based on svg by Rinaldum on wikimedia)
+-  farming_tool_billhook (based on svg by Henrysalome on wikimedia)
+-  farming_sugerbeet (based on farming_beetroot)
+-  farming_blackberry (based on farming_blueberry)
+-  farming_blackberry_seed (based on jpg from AlbertCahalan on wikimedia)
+-  farming_blueberry_seed (based on jpg from Bateau ivre on wikimedia)
+-  farming_strawberry_seed (based on gif from Nicke L on wikimedia)
+-  farming_raspberry_seed (based on jpg from AlbertCahalan on wikimedia)
+-  farming_mustard
+-  farming_spelt (based on farming_barley)
+-  farming_hop
+-  farming_tobaco (based on pictures of wikimedia)
+-  farming_tool_spinningwheal (based on drawing by firkin on opencliparts)
+-  farming_yarn (based on picture from ikiwana on wikimedia)
