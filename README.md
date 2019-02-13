@@ -3,13 +3,13 @@
 
 Main repository:
 
-https://notabug.org/ademant/minerdream.git
+https://notabug.org/ademant/farming_modpack.git
 
 Mirrors:
 
-https://github.com/ademant/minerdream.git
+https://github.com/ademant/farming_modpack.git
 
-https://gitlab.com/ademant/minerdream.git
+https://gitlab.com/ademant/farming_modpack.git
 
 ## Short description
 Providing following mods:
