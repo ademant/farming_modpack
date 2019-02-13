@@ -1,10 +1,10 @@
-#Farming
+# Minetest Mod: Farming
 See license.txt for license information.
 
-##Short description
+## Short description
 Mod for extending the farming capabilities of minetest. 
 
-##Description
+## Description
 You have wild crops, which you can cultivate to get faster and more harvest.
 The crops can be infected, where you get nothing. And the infection spreads to nearby crops.
 A culture of crops can be destroyed by the infection, where the cultured variant of crops 
@@ -44,7 +44,7 @@ Based on the definition the behauvior is defined:
 	To get a seed of the fruit, you have to use a seed picker. The plant goes back one step and need to regrow booth
 	leaves and seed.
 
-##API
+## API
 The crops inside farming mod are defined by a single .txt file, where for each crop in a row the whole definition is given.
 
 Each row will by interpreted to generate a data object, which is registered by farming.register_plant. Inside this function all registering are called by functions intended for internal usage.
@@ -53,7 +53,7 @@ A detailed description of the txt file is given in crops.lua
 
 Most important function is farming.register_plant(def). The structure of <def> is given in api.txt.
 
-##Authors of source code
+## Authors of source code
 
 Originally by PilzAdam (MIT)
 
@@ -65,7 +65,7 @@ ademant (MIT)
 
 Various Minetest developers and contributors (MIT)
 
-##Authors of media (textures)
+## Authors of media (textures)
 Created by PilzAdam (CC BY 3.0):
 -  farming_bread.png
 -  farming_soil.png

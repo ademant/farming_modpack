@@ -1,6 +1,6 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-# Farming Awards
-##Description
+# Minetest mod: Farming Awards
+## Description
 
 Enhance farming mod with Awards via awards mod by rubenwardy:
 
@@ -12,12 +12,12 @@ Enhance farming mod with Awards via awards mod by rubenwardy:
 
 See license.txt for license information.
 
-##Authors of source code
+## Authors of source code
 
 ademant (MIT)
 
-##Authors of media (textures)
----------------------------
+## Authors of media (textures)
+
 Created by ademant (CC BY 3.0):
   farming_awards_thresher (based on picture from addysgLLGC on opencliparts)
   farming_awards_miller (based on https://openclipart.org/detail/11551/rpg-map-symbols-windmill)
