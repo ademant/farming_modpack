@@ -1,6 +1,16 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 # Farming Modpack
 
+Main repository:
+
+https://notabug.org/ademant/minerdream.git
+
+Mirrors:
+
+https://github.com/ademant/minerdream.git
+
+https://gitlab.com/ademant/minerdream.git
+
 ## Short description
 Providing following mods:
 - Farming, fork of farming redo with easier crop definition and some more things
