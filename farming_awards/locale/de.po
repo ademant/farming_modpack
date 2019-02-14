@@ -1,0 +1,60 @@
+# German Translation for farming awards mod.
+# Copyright (C) 2019
+# This file is distributed under the same license as the farming awards package.
+# Xanthin.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.27\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-02-14 HO:MI+ZONE\n"
+"PO-Revision-Date: 2019-02-14 HO:MI+ZONE\n"
+"Last-Translator: ademant\n"
+"Language-Team: \n"
+"Language: German \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Coffee"
+msgstr "Kaffee"
+
+msgid "Silver"
+msgstr "Silber"
+
+msgid "You got your first coffee"
+msgstr "Du trinkst Deinen ersten Kaffee"
+
+msgid "You got your tenth coffee"
+msgstr "Du trinkst Deinen 10. Kaffee"
+
+msgid "You had 30 coffee"
+msgstr "Du hast jetzt 30 Kaffee"
+
+msgid "You are an advanced farmer"
+msgstr "Du bist ein Profi Bauer"
+
+msgid "You are an advanced gatherer"
+msgstr "Du bist ein Profi Sammler"
+
+msgid "You are an advanced miller"
+msgstr "Du bist ein Profi Müller"
+
+msgid "You are an advanced thresher"
+msgstr "Du bist ein Profi Drescher"
+
+msgid "Advanced"
+msgstr "Profi"
+
+msgid "Farmer"
+msgstr "Bauer"
+
+msgid "Gatherer"
+msgstr "Sammler"
+
+msgid "Farming Miller"
+msgstr "Müller"
+
+msgid "Farming Thresher"
+msgstr "Drescher"

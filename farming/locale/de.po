@@ -9,15 +9,14 @@ msgstr ""
 "Project-Id-Version: 1.27\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-03-31 HO:MI+ZONE\n"
-"PO-Revision-Date: 2016-03-31 HO:MI+ZONE\n"
-"Last-Translator: Xanthin\n"
+"PO-Revision-Date: 2019-02-14 HO:MI+ZONE\n"
+"Last-Translator: ademant\n"
 "Language-Team: \n"
 "Language: German \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: spelt.lua
 msgid "Spelt"
 msgstr "Dinkel"
 
@@ -84,10 +83,10 @@ msgstr "Rhabarber"
 msgid "Tomatoe"
 msgstr "Tomate"
 
-msgid "Hops"
+msgid "Hop"
 msgstr "Hopfen"
 
-msgid "Urtica"
+msgid "Nettle"
 msgstr "Brennnessel"
 
 msgid "Hemp"
@@ -98,3 +97,84 @@ msgstr "Tabak"
 
 msgid "Tea"
 msgstr "Tee"
+
+msgid "Seed"
+msgstr "Saat"
+
+msgid "Coffee Grinder"
+msgstr "Kaffeemühle"
+
+msgid "Sugar"
+msgstr "Zucker"
+
+msgid "Flour"
+msgstr "Mehl"
+
+msgid "Juicer"
+msgstr "Entsafter"
+
+msgid "Mortar and Pestle"
+msgstr "Mörser"
+
+msgid "billhook"
+msgstr "Hippe"
+
+msgid "Threshing Flail"
+msgstr "Dreschflegel"
+
+msgid "Seed Picker"
+msgstr "Obstplücker"
+
+msgid "hoe"
+msgstr "Hacke"
+
+msgid "scythe"
+msgstr "Sense"
+
+msgid "Saucepan"
+msgstr "Pfanne"
+
+msgid "Straw"
+msgstr "Stroh"
+
+msgid "stone"
+msgstr "Stein"
+
+msgid "steel"
+msgstr "Stahl"
+
+msgid "wood"
+msgstr "Holz"
+
+msgid "Trellis"
+msgstr "Rankgerüst"
+
+msgid "Culturewheat"
+msgstr "Kulturweizen"
+
+msgid "Wildoat"
+msgstr "Wildhafer"
+
+msgid "wilted"
+msgstr "verwelkt"
+
+msgid "powder"
+msgstr "Pulver"
+
+msgid "roasted"
+msgstr "geröstet"
+
+msgid "Soil"
+msgstr "Ackerboden"
+
+msgid "Wet Soil"
+msgstr "Feuchter Ackerboden"
+
+msgid "Desert Soil"
+msgstr "Ackerboden"
+
+msgid "Wet Desert Soil"
+msgstr "Feuchter Ackerboden"
+
+msgid "Fibre"
+msgstr "Fasern"

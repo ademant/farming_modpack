@@ -9,7 +9,7 @@ local tool_definition = basic_functions.import_csv(farming.path.."/tools.txt",cr
 
 for i,line in pairs(tool_definition) do
 	
-	tool_def={description=S(line.name:gsub("_"," ")),
+	tool_def={description=S(line.name:split("_")[1]).." "..S(line.name:split("_")[2]),
 		inventory_image="farming_tool_"..line.name..".png",
 		max_uses=line.max_uses,
 		farming_change=line.farming_change,

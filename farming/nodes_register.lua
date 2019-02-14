@@ -22,7 +22,7 @@ local register_plant_check_def = function(def) -- time optimised
 		end
 	end
 	if not def.description then
-		def.description = def.name:gsub("^%l", string.upper)
+		def.description = S(def.name:gsub("^%l", string.upper))
 	end
 	if not def.fertility then
 		def.fertility = {"grassland"}
@@ -230,7 +230,7 @@ farming.register_wilt=function(idef)
 		return
 	end
 	local wilt_def={
-		description = S(idef.description:gsub("^%l", string.upper).." wilted"),
+		description = S(idef.description:gsub("^%l", string.upper)).." "..S("wilted"),
 		tiles = {idef.basepng.."_wilt.png"},
 		drawtype = "plantlike",
 		waving = 1,
@@ -267,7 +267,7 @@ farming.register_seed=function(sdef) --time optimised
 --	local starttime=os.clock()
 	local invimage=sdef.seed_name:gsub(":","_")..".png"
     local seed_def = {
-		description=S(sdef.name:gsub("^%l", string.upper).." Seed"),
+		description=S(sdef.name:gsub("^%l", string.upper)).." "..S("Seed"),
 		next_step = sdef.step_name .. "_1",
 		inventory_image = invimage,
 		tiles = {invimage},
@@ -394,7 +394,7 @@ farming.register_steps = function(sdef)
 	for i=1,max_step do
 		local reli=i/max_step
 		local ndef=table.copy(gdef)
-		ndef.description=stepname..i
+		ndef.description=S(stepname)..i
 		ndef.tiles={sdef.basepng.."_"..i..".png"}
 		ndef.groups.step=i
 		if i < max_step then
@@ -520,7 +520,7 @@ function farming.register_coffee(cdef)
 	local powder_png = cdef.coffeepowder:gsub(":","_")..".png"
 	
 	local powder_def={
-		description = S(cdef.description:gsub("^%l", string.upper).." powder"),
+		description = S(cdef.description:gsub("^%l", string.upper)).." "..S("powder"),
 		inventory_image = powder_png,
 		groups = {flammable = 2,food_grain_powder=1},
 		plant_name=cdef.plant_name,
@@ -619,7 +619,7 @@ function farming.register_grind(rdef)
 	local grind_png = grinditem:gsub(":","_")..".png"
 	
 	local grind_def={
-		description = S(desc:gsub("^%l", string.upper).." roasted"),
+		description = S(desc:gsub("^%l", string.upper)).." "..S("roasted"),
 		inventory_image = grind_png,
 		groups = {flammable = 2},
 		plant_name=rdef.plant_name,

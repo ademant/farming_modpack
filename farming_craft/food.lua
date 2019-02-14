@@ -27,7 +27,7 @@ minetest.register_craft({
 --= Salt
 
 minetest.register_node(":farming:salt", {
-	description = ("Salt"),
+	description = S("Salt"),
 	inventory_image = "farming_salt.png",
 	wield_image = "farming_salt.png",
 	drawtype = "plantlike",
@@ -54,7 +54,7 @@ minetest.register_craft({
 --= Rose Water
 
 minetest.register_node(":farming:rose_water", {
-	description = ("Rose Water"),
+	description = S("Rose Water"),
 	inventory_image = "farming_rose_water.png",
 	wield_image = "farming_rose_water.png",
 	drawtype = "plantlike",
@@ -196,7 +196,7 @@ end)
 
 
 minetest.register_craftitem(":farming:bread", {
-	description = "Bread",
+	description = S("Bread"),
 	inventory_image = "farming_bread.png",
 	on_use = minetest.item_eat(5),
 	groups = {food_bread = 1, flammable = 2},
@@ -230,13 +230,13 @@ if basic_functions.has_value(modlist,"vessels") and basic_functions.has_value(mo
 		}
 	})
 	minetest.register_craftitem(":farming:grain_coffee_cup", {
-		description = "Grain Coffee",
+		description = S("Grain Coffee"),
 		inventory_image = "farming_coffee_cup.png",
 		on_use = minetest.item_eat(2,"vessels:drinking_glass"),
 		groups = {coffee = 1, flammable = 1, beverage=1},
 	})
 	minetest.register_craftitem(":farming:grain_coffee_cup_hot", {
-		description = "Grain Coffee hot",
+		description = S("Grain Coffee hot"),
 		inventory_image = "farming_coffee_cup_hot.png",
 		on_use = minetest.item_eat(4,"vessels:drinking_glass"),
 		groups = {coffee = 2, flammable = 1, beverage=2},
@@ -248,7 +248,7 @@ if basic_functions.has_value(modlist,"vessels") and basic_functions.has_value(mo
 		recipe = "farming:grain_coffee_cup"
 	})
 	minetest.register_craftitem(":farming:grain_milk", {
-		description = "Grain Milk",
+		description = S("Grain Milk"),
 		inventory_image = "farming_grain_milk.png",
 		on_use = minetest.item_eat(5,"vessels:drinking_glass"),
 		groups = {flammable = 1, beverage=1},
