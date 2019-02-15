@@ -175,7 +175,7 @@ end
 farming.register_harvest=function(hdef) --time optimised
 	-- base definition of harvest
 	local harvest_def={
-		description = S(hdef.description),
+		description = S(hdef.description:gsub("^%l", string.upper)),
 		inventory_image = hdef.mod_name.."_"..hdef.plant_name..".png",
 		groups = {flammable = 2,farming_harvest=1},
 		plant_name=hdef.plant_name,
@@ -200,7 +200,7 @@ farming.register_infect=function(idef)
 --	local starttime=os.clock()
 	local infectpng=idef.mod_name.."_"..idef.plant_name.."_ill.png"
 	local infect_def={
-		description = S(idef.description),
+		description = S(idef.description:gsub("^%l", string.upper)),
 		tiles = {infectpng},
 		drawtype = "plantlike",
 		waving = 1,
@@ -392,7 +392,7 @@ farming.register_steps = function(sdef)
 	end
 		
 	local max_step=sdef.steps
-	local stepname=sdef.step_name.."_"
+	local stepname=sdef.step_name:gsub("^%l", string.upper).."_"
 	for i=1,max_step do
 		local reli=i/max_step
 		local ndef=table.copy(gdef)
