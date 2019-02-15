@@ -13,6 +13,7 @@ Actual columns:
 	Rarety					How often the crop spawn in the wild
 	Rarety_grass_drop		Change to get crop as drop item when digging grass
 	Rarety_junglegrass_drop	Change to get crop as drop item when digging jungle grass
+	Rarety_decoration		Rarety for register_decoration function: It will appear on new generated maps beside abm function
 	Steps					Amount of steps the growing needs till full grown plant. Must be set
 	harvest_max				Max. amount of harvest or seed you can dig out of full grown plant
 	eat_hp					eat health point: How many HP you get by eating the seed.
@@ -83,6 +84,7 @@ Actual columns:
 							Only with a trellis you get cultured whine with higher harvest.
 							With normal grapes and a trellis you get the "seed" for cultured wine.
 	grind					name of item for grinded seed
+	spawn_by	text		only with rarety_deco: set spawn_by in register_decoration
 ]]
 
 local S = farming.intllib
@@ -90,10 +92,10 @@ farming.path = minetest.get_modpath("farming")
 
 local has_value = basic_functions.has_value 
 local crop_cols={
-	col_num={"rarety","steps","harvest_max","eat_hp",
-	"temperature_min","temperature_max","humidity_min","humidity_max",
-	"elevation_min","elevation_max","light_min","light_max",
-	"infect_rate_base","infect_rate_monoculture","spread_rate","grow_time_mean","roast_time","wilt_time","rarety_grass_drop"},
+	col_num={"rarety","steps","harvest_max","eat_hp","temperature_min","temperature_max",
+	"humidity_min","humidity_max","elevation_min","elevation_max","light_min","light_max",
+	"infect_rate_base","infect_rate_monoculture","spread_rate","grow_time_mean","roast_time",
+	"wilt_time","rarety_grass_drop","rarety_decoration"},
 	groups_num={"to_culture","to_dig","has_harvest","on_soil","punchable","infectable","is_bush",
 	"seed_extractable","use_flail","use_trellis","snappy","infection_defence","seed_roastable",
 	"seed_grindable","for_flour","for_coffee","damage_per_second","liquid_viscosity","wiltable"}}

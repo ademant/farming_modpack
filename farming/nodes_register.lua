@@ -166,7 +166,9 @@ farming.register_plant = function(def)
 			table.insert(farming.junglegrass_drop.items,1,{items={def.harvest_name},rarity=def.rarety_junglegrass_drop})
 		end
 	end
-	
+	if def.rarety_decoration ~= nil then
+		farming.register_deco(def)
+	end
    	farming.registered_plants[def.name] = def
 end
 
@@ -662,4 +664,41 @@ end
 
 --	local starttime=os.clock()
 --	print("time define infect "..1000*(os.clock()-starttime))
+
+farming.register_deco = function(ddef)
+-- register decoration if defined
+	if ddef.rarety_decoration == nil then
+		return
+	end
+	if ddef.seed_name == nil then
+		return
+	end
+	if ddef.step_name == nil then
+		return
+	end
+	
+	local deco_def={
+		deco_type = "simple",
+		place_on = farming.change_soil,
+		sidelen = 16,
+		noise_params = {
+			offset = 0,
+			scale = ddef.rarety_decoration,
+			spread = {x = math.random(95,105), y = math.random(95,105), z = 100},
+			seed = math.random(1,314159),
+			octaves = 3,
+			persist = 0.6
+		},
+		y_min = ddef.elevation_min,
+		y_max = ddef.elevation_max,
+		decoration = ddef.step_name.."_"..ddef.steps,
+	}
+	if ddef.spawn_by then
+		deco_def.spawn_by=ddef.spawn_by
+		deco_def.num_spawn_by=1
+	end
+	print(dump2(deco_def))
+	print(dump2(minetest.registered_items[ddef.step_name.."_"..ddef.steps]))
+	minetest.register_decoration(deco_def)
+end
 
