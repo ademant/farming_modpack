@@ -2,3 +2,5 @@ farming
 ethereal?
 moretrees?
 woodsoil?
+mobs_animal?
+treasures?
