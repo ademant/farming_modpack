@@ -478,7 +478,7 @@ farming.register_steps = function(sdef)
 			end
 		end
 --		print(dump(ndef))
-		minetest.register_node(":" .. ndef.description, ndef)
+		minetest.register_node(":" .. stepname..i, ndef)
 	end
 --	print("time register step "..1000*(os.clock()-starttime))
 end
