@@ -269,7 +269,7 @@ farming.register_seed=function(sdef) --time optimised
 --	local starttime=os.clock()
 	local invimage=sdef.seed_name:gsub(":","_")..".png"
     local seed_def = {
-		description=S(sdef.name:gsub("^%l", string.upper)).." "..S("Seed"),
+		description=S(sdef.name):gsub("^%l", string.upper).." "..S("Seed"),
 		next_step = sdef.step_name .. "_1",
 		inventory_image = invimage,
 		tiles = {invimage},
@@ -392,11 +392,11 @@ farming.register_steps = function(sdef)
 	end
 		
 	local max_step=sdef.steps
-	local stepname=sdef.step_name:gsub("^%l", string.upper).."_"
+	local stepname=sdef.step_name.."_"
 	for i=1,max_step do
 		local reli=i/max_step
 		local ndef=table.copy(gdef)
-		ndef.description=S(stepname)..i
+		ndef.description=S(sdef.step_name):gsub("^%l", string.upper).." "..i
 		ndef.tiles={sdef.basepng.."_"..i..".png"}
 		ndef.groups.step=i
 		if i < max_step then
@@ -477,9 +477,6 @@ farming.register_steps = function(sdef)
 				ndef.seed_name = sdef.seed_name
 			end
 		end
---		print(dump(ndef))
---		print(dump2(stepname..i))
---		print(dump2(sdef.step_name.."_"..i))
 		minetest.register_node(":" .. sdef.step_name.."_"..i, ndef)
 	end
 --	print("time register step "..1000*(os.clock()-starttime))
