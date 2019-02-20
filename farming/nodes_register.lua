@@ -112,7 +112,7 @@ farming.register_plant = function(def)
 		local spread_def={name=def.step_name.."_1",
 				temp_min=edef.temperature_min,temp_max=edef.temperature_max,
 				hum_min=edef.humidity_min,hum_max=edef.humidity_max,
-				y_min=edef.elevation_min,y_max=edef.elevation_max,base_rate = math.floor(math.log(def.spread_rate)),
+				y_min=edef.elevation_min,y_max=edef.elevation_max,base_rate = math.floor((-1)*math.log(def.spread_rate)),
 				light_min=edef.light_min,light_max=edef.light_max}
 		farming.min_light = math.min(farming.min_light,edef.light_min)
 		-- add crop to spreading list, if base rate > 0
@@ -174,7 +174,8 @@ farming.register_plant = function(def)
 		end
 	end
 	if def.rarety_decoration ~= nil then
-		farming.register_deco(def)
+	-- does not work yet
+--		farming.register_deco(def)
 	end
    	farming.registered_plants[def.name] = def
 end
@@ -697,29 +698,37 @@ farming.register_deco = function(ddef)
 	if ddef.step_name == nil then
 		return
 	end
-	
+	local deco_name = ddef.step_name.."_"..ddef.steps
+	if minetest.registered_items[deco_name] == nil then
+		return
+	end
+	local spread=math.random(95,105)
 	local deco_def={
 		deco_type = "simple",
-		place_on = farming.change_soil,
+		place_on = table.copy(farming.change_soil),
 		sidelen = 16,
 		noise_params = {
 			offset = 0,
 			scale = ddef.rarety_decoration,
-			spread = {x = math.random(95,105), y = math.random(95,105), z = 100},
+			spread = {x = spread, y = spread, z = spread},
 			seed = math.random(1,314159),
 			octaves = 3,
 			persist = 0.6
 		},
 		y_min = ddef.elevation_min,
 		y_max = ddef.elevation_max,
-		decoration = ddef.step_name.."_"..ddef.steps,
+		decoration = {deco_name},
+		name=deco_name,
 	}
 	if ddef.spawn_by then
-		deco_def.spawn_by=ddef.spawn_by
-		deco_def.num_spawn_by=1
+		if minetest.registered_items[ddef.spawn_by]~= nil then
+			deco_def.spawn_by=ddef.spawn_by
+			deco_def.num_spawn_by=1
+		end
 	end
-	print(dump2(deco_def))
-	print(dump2(minetest.registered_items[ddef.step_name.."_"..ddef.steps]))
+--	print(dump2(deco_def))
+--	print(dump2(farming.change_soil))
 	minetest.register_decoration(deco_def)
+--	print(dump2(minetest.registered_decorations[deco_name]))
 end
 

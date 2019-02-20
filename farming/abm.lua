@@ -1,5 +1,6 @@
 
 minetest.register_abm({
+	-- change wetness of soil by time
 	label = "Farming soil",
 	nodenames = {"group:field"},
 	interval = 15,
@@ -59,6 +60,7 @@ minetest.register_abm({
 
 
 minetest.register_abm({
+	-- infect plants
 	label="crops getting ill",
 	nodenames="group:infectable",
 	intervall = 120,
@@ -97,7 +99,7 @@ minetest.register_abm({
 	interval = farming.abm_planting+math.random(-1,1), -- little noise
 	chance = farming.abm_planting_chance,
 	action = function(pos)
-		local starttime=os.clock()
+--		local starttime=os.clock()
 		local ptabove={x=pos.x,y=pos.y+1,z=pos.z}
 		local above = minetest.get_node(ptabove)
 		if above.name ~= "air" then
@@ -140,7 +142,8 @@ minetest.register_abm({
 			end
 		end
 		if #sc > 0 then
-			minetest.add_node(ptabove, {name=sc[math.random(1,#sc)],param2=1})
+			local setplant=sc[math.random(1,#sc)]
+			minetest.add_node(ptabove, {name=setplant,param2=1})
 			minetest.get_node_timer(ptabove):start(math.random(10, 15))
 			farming.set_node_metadata(ptabove)
 		end
