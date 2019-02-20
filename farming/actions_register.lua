@@ -237,6 +237,9 @@ farming.timer_step = function(pos, elapsed)
 		return
 	end
 
+	if minetest.registered_nodes[def.next_step] == nil then
+		return
+	end
 	local light = minetest.get_node_light(pos)
 	local pdef=farming.registered_plants[def.plant_name]
 
