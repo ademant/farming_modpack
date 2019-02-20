@@ -16,6 +16,7 @@ local register_plant_check_def = function(def) -- time optimised
 	def.base_name=base_name
 	def.basepng=base_name:gsub(":","_")
 	
+	-- check if at least default values are set
 	for dn,dv in pairs(farming_default_env) do
 		if def[dn] == nil then
 			def[dn] = dv
@@ -82,24 +83,27 @@ farming.register_plant = function(def)
     -- if plant has harvest then registering
     if def_groups["has_harvest"] ~= nil then
 		-- if plant drops seed of wild crop, set the wild seed as harvest
+		def.harvest_name = def.step_name
+		-- check if seed is dropped instead of harvest
 		if def.seed_drop ~= nil then
 			def.harvest_name = def.seed_drop
-		else
-			def.harvest_name = def.step_name
 		end
-		print(def.harvest_name)
+--		print(def.harvest_name)
 		farming.register_harvest(def)
     else
 		def.harvest_name=def.seed_name
     end
     
+    -- if plant should be wiltable, register
     if def_groups["wiltable"] == 2 then
 		def.wilt_name=def.mod_name..":wilt_"..def.name
 		farming.register_wilt(def)
 	end
 
+	-- register seed items, which can be planted
     farming.register_seed(def)
 
+	-- register growing steps
 	farming.register_steps(def)
 	
 	-- crops, which should be cultured, does not randomly appear on the field
@@ -117,6 +121,7 @@ farming.register_plant = function(def)
 		end
 	end
 	
+	-- register if plant is infectable
     if def_groups["infectable"] then
       farming.register_infect(def)
     end
@@ -131,6 +136,7 @@ farming.register_plant = function(def)
 		end
 	end
 
+	-- for normal wheat the crafting of seeds out of harvest can directly registered
     if def_groups["use_flail"] then
 		if def.straw == nil then
 			def.straw= "farming:straw"
@@ -138,6 +144,7 @@ farming.register_plant = function(def)
 		farming.craft_seed(def)
     end
 
+	-- for plants using a trellis the seed is crafted out of harvest with a trellis
     if def_groups["use_trellis"] then
 		farming.trellis_seed(def)
 --		print(dump(def))
@@ -345,6 +352,7 @@ farming.register_steps = function(sdef)
 		end
 	end
 	
+	-- check if plant if hurting player
 	local is_hurting=(sdef.groups.damage_per_second~=nil)
 	local damage=0
 	
@@ -352,13 +360,14 @@ farming.register_steps = function(sdef)
 		damage=sdef.groups.damage_per_second
 	end
 	
+	-- check if moving through plant is viscos
 	local is_viscos=(sdef.groups.liquid_viscosity and farming.config:get_int("viscosity") > 0)
 	local viscosity=0
 	if is_viscos then
 		viscosity=sdef.groups.liquid_viscosity
 	end
 	
-	
+	-- base definition for all steps
 	local gdef={
 		drawtype = "plantlike",
 		waving = 1,
@@ -377,9 +386,11 @@ farming.register_steps = function(sdef)
 			not_in_creative_inventory = 1, attached_node = 1,
 			},
 	}
+	-- copy other values into plant definition
 	for _,colu in ipairs({"grow_time_min","grow_time_max","light_min","plant_name"}) do
 		gdef[colu]=sdef[colu]
 	end
+	-- copy group values
 	for _,colu in ipairs({"infectable","snappy","damage_per_second","liquid_viscosity","wiltable"}) do
 		if sdef.groups[colu] then
 		  gdef.groups[colu] = sdef.groups[colu]
@@ -387,25 +398,31 @@ farming.register_steps = function(sdef)
 	end
 	gdef.groups[sdef.mod_name]=1
 	gdef.groups[sdef.plant_name]=1
+	
+	-- if plant uses trellis, give one back
 	if sdef.groups.use_trellis then
 		table.insert(gdef.drop.items,1,{items={"farming:trellis"}})
 	end
 		
 	local max_step=sdef.steps
 	local stepname=sdef.step_name.."_"
+	-- loop for all steps
 	for i=1,max_step do
 		local reli=i/max_step
 		local ndef=table.copy(gdef)
+		-- adjust table definition
 		ndef.description=S(sdef.step_name):gsub("^%l", string.upper).." "..i
 		ndef.tiles={sdef.basepng.."_"..i..".png"}
 		ndef.groups.step=i
+		
+		-- definitions for not full grown plants
 		if i < max_step then
 			ndef.groups["farming_grows"]=1 -- plant is growing
-			ndef.next_step=stepname.. (i + 1)
-			ndef.on_timer = farming.timer_step
+			ndef.next_step=stepname.. (i + 1) -- pointer to next plant
+			ndef.on_timer = farming.timer_step -- setting normal timer function
 		end
 
-		-- hurting and viscosity not for first step, which is used for random generation
+		-- additional definitions for plant step 2 and greater
 		if i > 1 then
 			-- check if plant hurts while going through
 			if is_hurting then
@@ -438,20 +455,23 @@ farming.register_steps = function(sdef)
 		  end
 		end
 
+		-- definitions for fullgrown plants
 		if i == max_step then
 			ndef.groups["farming_fullgrown"]=1
+			-- fullgrown plants can be punches to give harvest (if defined)
 			for _,colu in ipairs({"punchable","seed_extractable"}) do
 				if sdef.groups[colu] then
 				  ndef.groups[colu] = sdef.groups[colu]
 				end
 			end
---			ndef.on_dig = farming.dig_harvest
+			
+			-- if fullgrown plant can wilt, define wilt
 			if sdef.groups.wiltable  then
 
 				local nowilt=sdef.groups.wiltable
-				if nowilt == 2 then
+				if nowilt == 2 then -- normal wilt
 					ndef.next_step=sdef.wilt_name
-				elseif nowilt == 1 then
+				elseif nowilt == 1 then -- berries loose their fruit
 					ndef.next_step = stepname .. (i - 1)
 				elseif nowilt == 3 then
 					ndef.pre_step = stepname .. (i - 1)
@@ -459,6 +479,8 @@ farming.register_steps = function(sdef)
 				end
 
 				ndef.on_timer = farming.timer_step
+				
+				-- set wilt time to configured values
 				ndef.grow_time_min=sdef.wilt_time or 540
 				ndef.grow_time_max=math.ceil(ndef.grow_time_min*1.1)
 			end
@@ -469,6 +491,7 @@ farming.register_steps = function(sdef)
 			  table.insert(ndef.drop.items,1,{items={sdef.next_plant},tools={"farming:scythe"},rarity=next_plant_rarity})
 			end
 
+			-- set pointer to second last step for punchable fruits
 			if sdef.groups.punchable and i > 1 then
 				ndef.pre_step = stepname.. (i - 1)
 			end
@@ -477,12 +500,11 @@ farming.register_steps = function(sdef)
 				ndef.seed_name = sdef.seed_name
 			end
 		end
+		-- register node
 		minetest.register_node(":" .. sdef.step_name.."_"..i, ndef)
 	end
 --	print("time register step "..1000*(os.clock()-starttime))
 end
-
-
 
 -- define seed crafting out of harvest, releasing kind of straw
 function farming.craft_seed(gdef)
